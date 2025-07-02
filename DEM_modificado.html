@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espacios 2026 INNOVACION</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .sheet-title {
+            margin-top: 40px;
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .empty-cell {
+            background-color: #f9f9f9;
+        }
+        .contador-container {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .contador-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            padding: 8px 12px;
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid #dee2e6;
+            font-size: 14px;
+        }
+        .contador-item.completed {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+        .option-used {
+            color: #6c757d;
+            font-style: italic;
+        }
+        .select-used {
+            background-color: #e8f5e8;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e9ecef;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #28a745;
+            transition: width 0.3s ease;
+        }
+        /* Ocultar la sección de datos fuente */
+        .datos-fuente {
+            display: none;
+        }
+        /* Estilos para el botón toggle (opcional) */
+        .toggle-datos {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+        .toggle-datos:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <h1>Espacios 2026 INNOVACION</h1>
+
+    <!-- Contador de elementos restantes -->
+    <div class="contador-container">
+        <h3 style="margin-top: 0;">Estado de Asignaciones</h3>
+        <div id="contadores">
+            <!-- Se llenará dinámicamente -->
+        </div>
+    </div>
+
+    <h2 class="sheet-title">Formulario de Asignación de Espacios</h2>
+    <table id="formulario">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Espacio</th>
+                <th colspan="2">Nivel 1</th>
+                <th colspan="2">Nivel 2</th>
+                <th colspan="2">Nivel 3</th>
+                <th colspan="2">Nivel 4</th>
+                <th colspan="2">Nivel 5</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th></th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C1</th>
+                <th>C2</th>
+                <th>C1</th>
+                <th>C2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="8">Formacion general</td>
+                <td rowspan="3">Troncales</td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+            </tr>
+            <tr>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+            </tr>
+            <tr>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+                <td colspan="2"><select class="troncales"></select></td>
+            </tr>
+            <tr>
+                <td rowspan="2">Laboratorios</td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+                <td><select class="lab-sociales"></select></td>
+            </tr>
+            <tr>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+                <td><select class="lab-naturales"></select></td>
+            </tr>
+            
+<tr>
+    <td rowspan="3">Talleres</td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+</tr>
+<tr>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+</tr>
+<tr>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+    <td><select class="talleres-generales"></select></td>
+</tr>
+
+
+            <tr>
+                <td rowspan="3">Form.Orientada</td>
+                <td>Laboratorios</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td><select class="lab-orientacion"></select></td>
+                <td><select class="lab-orientacion"></select></td>
+                <td><select class="lab-orientacion"></select></td>
+                <td><select class="lab-orientacion"></select></td>
+                <td><select class="lab-orientacion"></select></td>
+                <td><select class="lab-orientacion"></select></td>
+            </tr>
+            <tr>
+                <td>Talleres</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td><select class="talleres-orientacion"></select></td>
+                <td><select class="talleres-orientacion"></select></td>
+                <td><select class="talleres-orientacion"></select></td>
+                <td><select class="talleres-orientacion"></select></td>
+                <td><select class="talleres-orientacion"></select></td>
+                <td><select class="talleres-orientacion"></select></td>
+            </tr>
+            <tr>
+                <td>Proyecto VF</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td colspan="2"><select class="proyecto-egreso"></select></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Botón para mostrar/ocultar datos fuente (opcional) -->
+    <button class="toggle-datos" onclick="toggleDatosFuente()">Mostrar datos fuente</button>
+
+    <!-- Sección de datos fuente (oculta por defecto) -->
+    <div class="datos-fuente" id="datos-fuente">
+        <h2 class="sheet-title">Datos - Fuente de los desplegables</h2>
+        <table id="datos-origen">
+            <thead>
+                <tr>
+                    <th>Espacios troncales</th>
+                    <th>Laboratorios Cs. Sociales</th>
+                    <th>Laboratorios Cs. Naturales</th>
+                    <th>Laboratorios de la orientación</th>
+                    <th>Talleres generales</th>
+                    <th>Talleres de la orientación</th>
+                    <th>Espacios PAT</th>
+                    <th>Proyecto de egreso</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Lengua y Literatura I</td>
+                    <td>Soc 1 (oblig)</td>
+                    <td>Nat 1 (oblig)</td>
+                    <td>Lab. orientación 1</td>
+                    <td>EF 1</td>
+                    <td>Taller orientación 1</td>
+                    <td>PAT 1</td>
+                    <td>Proyecto de egreso</td>
+                </tr>
+                <tr>
+                    <td>Lengua y Literatura II</td>
+                    <td>Soc 2 (oblig)</td>
+                    <td>Nat 2 (oblig)</td>
+                    <td>Lab. orientación 2</td>
+                    <td>EF 2</td>
+                    <td>Taller orientación 2</td>
+                    <td>PAT 2</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua y Literatura III</td>
+                    <td>Soc 3 (oblig)</td>
+                    <td>Nat 3 (oblig)</td>
+                    <td>Lab. orientación 3</td>
+                    <td>EF 3</td>
+                    <td>Taller orientación 3</td>
+                    <td>PAT 3</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua y Literatura IV</td>
+                    <td>Soc 4 (oblig)</td>
+                    <td>Nat 4 (oblig)</td>
+                    <td></td>
+                    <td>EF 4</td>
+                    <td></td>
+                    <td>PAT 4</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua y Literatura V</td>
+                    <td>Soc 1 (elec)</td>
+                    <td>Nat 1 (elec)</td>
+                    <td></td>
+                    <td>EF 5</td>
+                    <td></td>
+                    <td>PAT 5</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Matemática I</td>
+                    <td>Soc 2 (elec)</td>
+                    <td>Nat 2 (elec)</td>
+                    <td></td>
+                    <td>EF 6</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Matemática II</td>
+                    <td>Soc 3 (elec)</td>
+                    <td>Nat 3 (elec)</td>
+                    <td></td>
+                    <td>EF 7</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Matemática III</td>
+                    <td>Soc 4 (elec)</td>
+                    <td>Nat 4 (elec)</td>
+                    <td></td>
+                    <td>EF 8</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Matemática IV</td>
+                    <td>Soc 5 (elec)</td>
+                    <td>Nat 5 (elec)</td>
+                    <td></td>
+                    <td>EF 9</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Matemática V</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>EF 10</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua Adicional I</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Artes 1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua Adicional II</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Artes 2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua Adicional III</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Artes 3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua Adicional IV</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Artes 4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Lengua Adicional V</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Artes 5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Artes 6</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tecnología 1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tecnología 2</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tecnología 3</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tecnología 4</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tecnología 5</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>Tecnología 6</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Función para mostrar/ocultar datos fuente
+        function toggleDatosFuente() {
+            const datosFuente = document.getElementById('datos-fuente');
+            const boton = document.querySelector('.toggle-datos');
+            
+            if (datosFuente.style.display === 'none' || datosFuente.style.display === '') {
+                datosFuente.style.display = 'block';
+                boton.textContent = 'Ocultar datos fuente';
+            } else {
+                datosFuente.style.display = 'none';
+                boton.textContent = 'Mostrar datos fuente';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Datos directamente del Excel convertidos a arrays
+            const datos = {
+troncales: [
+                    "Lengua y Literatura I",
+                    "Lengua y Literatura II",
+                    "Lengua y Literatura III",
+                    "Lengua y Literatura IV",
+                    "Lengua y Literatura V",
+                    "Matemática I",
+                    "Matemática II",
+                    "Matemática III",
+                    "Matemática IV",
+                    "Matemática V",
+                    "Lengua Adicional I",
+                    "Lengua Adicional II",
+                    "Lengua Adicional III",
+                    "Lengua Adicional IV",
+                    "Lengua Adicional V"
+                ],
+                labSociales: [
+                    "Soc 1 (oblig)",
+                    "Soc 2 (oblig)",
+                    "Soc 3 (oblig)",
+                    "Soc 4 (oblig)",
+                    "Soc 1 (elec)",
+                    "Soc 2 (elec)",
+                    "Soc 3 (elec)",
+                    "Soc 4 (elec)",
+                    "Soc 5 (elec)"
+                ],
+                labNaturales: [
+                    "Nat 1 (oblig)",
+                    "Nat 2 (oblig)",
+                    "Nat 3 (oblig)",
+                    "Nat 4 (oblig)",
+                    "Nat 1 (elec)",
+                    "Nat 2 (elec)",
+                    "Nat 3 (elec)",
+                    "Nat 4 (elec)",
+                    "Nat 5 (elec)"
+                ],
+                labOrientacion: [
+                    "Lab. orientación 1",
+                    "Lab. orientación 2",
+                    "Lab. orientación 3"
+                ],
+                talleresOrientacion: [
+                    "Taller orientación 1",
+                    "Taller orientación 2",
+                    "Taller orientación 3"
+                ],
+                proyectoEgreso: [
+                    "Proyecto de egreso"
+                ],
+                talleresGenerales: [
+                    "EF 1",
+                    "EF 2",
+                    "EF 3",
+                    "EF 4",
+                    "EF 5",
+                    "EF 6",
+                    "EF 7",
+                    "EF 8",
+                    "EF 9",
+                    "EF 10",
+                    "Artes 1",
+                    "Artes 2",
+                    "Artes 3",
+                    "Artes 4",
+                    "Artes 5",
+                    "Artes 6",
+                    "Tecnología 1",
+                    "Tecnología 2",
+                    "Tecnología 3",
+                    "Tecnología 4",
+                    "Tecnología 5",
+                    "Tecnología 6"
+                ]
+            };
+
+            // Configuración de categorías con nombres amigables
+            const categorias = {
+'troncales': 'Espacios Troncales',
+                'lab-sociales': 'Lab. Cs. Sociales',
+                'lab-naturales': 'Lab. Cs. Naturales',
+                'lab-orientacion': 'Lab. Orientación',
+                'talleres-orientacion': 'Talleres Orientación',
+                'proyecto-egreso': 'Proyecto Egreso',
+                'talleres-generales': 'Talleres Generales'
+            };
+
+            // Mapeo de clases a datos
+            const mapeoClases = {
+'troncales': datos.troncales,
+                'lab-sociales': datos.labSociales,
+                'lab-naturales': datos.labNaturales,
+                'lab-orientacion': datos.labOrientacion,
+                'talleres-orientacion': datos.talleresOrientacion,
+                'proyecto-egreso': datos.proyectoEgreso,
+                'talleres-generales': datos.talleresGenerales
+            };
+
+            // Variable para rastrear elementos usados
+            let elementosUsados = {};
+
+            // Inicializar elementosUsados
+            Object.keys(mapeoClases).forEach(categoria => {
+                elementosUsados[categoria] = new Set();
+            });
+
+            // Función para actualizar contadores
+            function actualizarContadores() {
+                const contenedorContadores = document.getElementById('contadores');
+                contenedorContadores.innerHTML = '';
+
+                Object.keys(categorias).forEach(categoria => {
+                    const total = mapeoClases[categoria].length;
+                    const usados = elementosUsados[categoria].size;
+                    const restantes = total - usados;
+                    const porcentaje = total > 0 ? (usados / total) * 100 : 0;
+
+                    const contadorDiv = document.createElement('div');
+                    contadorDiv.className = `contador-item ${usados === total ? 'completed' : ''}`;
+                    contadorDiv.innerHTML = `
+                        <strong>${categorias[categoria]}:</strong> ${restantes} restantes (${usados}/${total})
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${porcentaje}%"></div>
+                        </div>
+                    `;
+                    contenedorContadores.appendChild(contadorDiv);
+                });
+            }
+
+            // Función para obtener elementos usados de una categoría
+            function obtenerElementosUsados(categoria) {
+                const selects = document.querySelectorAll(`.${categoria}`);
+                const usados = new Set();
+                
+                selects.forEach(select => {
+                    if (select.value && select.value !== '') {
+                        usados.add(select.value);
+                    }
+                });
+                
+                return usados;
+            }
+
+            // Función para llenar un desplegable
+            function llenarDesplegable(selector, opciones) {
+                const selects = document.querySelectorAll(selector);
+                const categoria = selector.replace('.', '');
+                const usados = obtenerElementosUsados(categoria);
+
+                selects.forEach(select => {
+                    const valorActual = select.value;
+                    
+                    // Limpiar opciones existentes
+                    select.innerHTML = '';
+                    
+                    // Agregar opción vacía
+                    const opcionVacia = document.createElement('option');
+                    opcionVacia.value = '';
+                    opcionVacia.textContent = '-';
+                    select.appendChild(opcionVacia);
+                    
+                    // Agregar opciones
+                    opciones.forEach(opcion => {
+                        const option = document.createElement('option');
+                        option.value = opcion;
+                        
+                        // Marcar como usado si está seleccionado en otro lugar
+                        if (usados.has(opcion) && valorActual !== opcion) {
+                            option.textContent = `${opcion} (USADO)`;
+                            option.className = 'option-used';
+                            option.disabled = true;
+                        } else {
+                            option.textContent = opcion;
+                        }
+                        
+                        select.appendChild(option);
+                    });
+                    
+                    // Restaurar valor si existía
+                    if (valorActual) {
+                        select.value = valorActual;
+                        if (select.value) {
+                            select.classList.add('select-used');
+                        }
+                    }
+                });
+            }
+
+            // Función para actualizar todo el formulario
+            function actualizarFormulario() {
+                // Actualizar elementos usados
+                Object.keys(mapeoClases).forEach(categoria => {
+                    elementosUsados[categoria] = obtenerElementosUsados(categoria);
+                });
+
+                // Relenar todos los desplegables
+                Object.keys(mapeoClases).forEach(categoria => {
+                    llenarDesplegable(`.${categoria}`, mapeoClases[categoria]);
+                });
+
+                // Actualizar contadores
+                actualizarContadores();
+            }
+
+            // Función inicial para llenar desplegables
+            function inicializarDesplegables() {
+                Object.keys(mapeoClases).forEach(categoria => {
+                    llenarDesplegable(`.${categoria}`, mapeoClases[categoria]);
+                });
+                actualizarContadores();
+            }
+
+            // Agregar event listeners a todos los selects
+            function agregarEventListeners() {
+                Object.keys(mapeoClases).forEach(categoria => {
+                    const selects = document.querySelectorAll(`.${categoria}`);
+                    selects.forEach(select => {
+                        select.addEventListener('change', function() {
+                            // Agregar/quitar clase visual
+                            if (this.value) {
+                                this.classList.add('select-used');
+                            } else {
+                                this.classList.remove('select-used');
+                            }
+                            
+                            // Actualizar formulario
+                            setTimeout(() => {
+                                actualizarFormulario();
+                            }, 10);
+                        });
+                    });
+                });
+            }
+
+            // Inicializar todo
+            inicializarDesplegables();
+            agregarEventListeners();
+        });
+    </script>
+
+    <!-- Botón para descargar PDF -->
+    <button id="btn-descargar-pdf" style="margin-top:10px; padding:8px 16px; background-color:#3498db; color:white; border:none; border-radius:4px; cursor:pointer;">
+        Descargar formulario en PDF
+    </button>
+
+    <!-- Librerías necesarias -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script>
+    document.getElementById('btn-descargar-pdf').addEventListener('click', () => {
+        const formulario = document.getElementById('formulario');
+        html2canvas(formulario, { scale: 2 }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jspdf.jsPDF('l', 'pt', 'a4');
+            
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+
+            const imgProps = pdf.getImageProperties(imgData);
+            const imgWidth = pdfWidth - 40;
+            const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
+
+            pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
+            pdf.save('formulario_espacios_2026.pdf');
+        });
+    });
+    </script>
+
+</body>
+</html>
